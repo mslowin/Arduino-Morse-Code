@@ -36,12 +36,8 @@ void loop() {
   if (repeatButtonState == LOW)
   {
     // when button is pressed
-//    digitalWrite(ledPin, HIGH);
-//    delay(10000);
-//    digitalWrite(ledPin, LOW);
     characterNumber--;
     LcdWriteCharacterNumber(characterNumber);
-
     delay(1000);
   }
   
