@@ -1,5 +1,6 @@
 #include <LiquidCrystal.h>
 
+const int resetPin = A0;
 const int ledPin = 7;
 const int buzzerPin = 13;
 const int nextCharacterButtonPin = 8;
@@ -20,9 +21,10 @@ void setup() {
   lcd.print("Zagatka z kodem");
   lcd.setCursor(0, 1);
   lcd.print("Morse'a");
-  
+
   pinMode(buzzerPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
+  pinMode(resetPin, OUTPUT);
   pinMode(nextCharacterButtonPin, INPUT_PULLUP);
   pinMode(repeatButtonPin, INPUT_PULLUP);
   pinMode(previousCharacterButtonPin, INPUT_PULLUP);
