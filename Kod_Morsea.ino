@@ -33,18 +33,36 @@ void loop() {
   int repeatButtonState = digitalRead(repeatButtonPin);
   int previousCharacterButtonState = digitalRead(previousCharacterButtonPin);
 
+  bool wasRepeatOrPreviousButtonPressed = false;
+
   if (repeatButtonState == LOW)
   {
-    // when button is pressed
-    characterNumber--;
+    // when repeat button is pressed
+    characterNumber = GoBackOneLetter(characterNumber);
     LcdWriteCharacterNumber(characterNumber);
-    delay(1000);
+    wasRepeatOrPreviousButtonPressed = true;
+    delay(200);
+  }
+  
+  if (previousCharacterButtonState == LOW)
+  {
+    // when previous button is pressed
+    characterNumber = GoBackOneLetter(characterNumber);
+    characterNumber = GoBackOneLetter(characterNumber);
+    LcdWriteCharacterNumber(characterNumber);
+    wasRepeatOrPreviousButtonPressed = true;
+    delay(200);
   }
   
   if (nextCharacterButtonState == HIGH)
   {
-    // when button is not pressed do nothing
-    return;
+    if (wasRepeatOrPreviousButtonPressed == false) {
+      // when button is not pressed do nothing
+      return;
+    }
+    else {
+      wasRepeatOrPreviousButtonPressed = true;
+    }
   }
 
   // When button is pressed then:
@@ -137,6 +155,18 @@ void LcdWriteCharacterNumber(int number)
   lcd.print("Litera nr:");
   lcd.setCursor(0, 1);
   lcd.print(number);
+}
+
+int GoBackOneLetter(int characterNumber)
+{
+  if (characterNumber == 1){
+    return characterNumber;
+  }
+  else{
+    characterNumber--;  
+  }
+
+  return characterNumber;
 }
 
 void longSignal()
